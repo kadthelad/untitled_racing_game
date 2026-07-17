@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://6tnd5xd7g3js"]
+
+[ext_resource type="Script" uid="uid://wfuvqww5yl5t" path="res://scenes/ui/components/value_bar_3d.gd" id="1_0irj3"]
+[ext_resource type="FontFile" uid="uid://djiey2j4galij" path="res://assets/fonts/Bangers/Bangers-Regular.ttf" id="2_eitlt"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_m8dyk"]
+size = Vector2(0.1, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pdkhx"]
+shading_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxxpo"]
+shading_mode = 0
+albedo_color = Color(0.74509805, 0.74509805, 0.74509805, 1)
+
+[node name="ValueBar3D" type="Node3D" unique_id=1825937076]
+script = ExtResource("1_0irj3")
+
+[node name="BarProgressionBG" type="Node3D" parent="." unique_id=449427359]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75287414, 0)
+
+[node name="ProgressionBarBGMesh" type="MeshInstance3D" parent="BarProgressionBG" unique_id=2089824330]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.016770273, 0.7518866, 0)
+mesh = SubResource("QuadMesh_m8dyk")
+surface_material_override/0 = SubResource("StandardMaterial3D_pdkhx")
+
+[node name="BarProgression" type="Node3D" parent="." unique_id=1549133891]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012389898, -0.7459391, 0.010402858)
+
+[node name="ProgressionBarMesh" type="MeshInstance3D" parent="BarProgression" unique_id=2127628461]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7468798, 0)
+mesh = SubResource("QuadMesh_m8dyk")
+surface_material_override/0 = SubResource("StandardMaterial3D_kxxpo")
+
+[node name="DisplayLabel" type="Label3D" parent="." unique_id=478198022]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12869245, 0, -0.0016472936)
+billboard = 1
+double_sided = false
+no_depth_test = true
+text = "ValueBar3D"
+font = ExtResource("2_eitlt")
+uppercase = true
+line_spacing = -6.0
+autowrap_mode = 1
+width = 1.0

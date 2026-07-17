@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://wu0oxkb0qv4o"]
+
+[ext_resource type="Script" uid="uid://bju3rqf4h6er8" path="res://scripts/classes/ability/ActiveSkill.gd" id="1_coicx"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_coicx"]
+
+[resource]
+script = ExtResource("1_coicx")
+activation_cause = 3
+skill_duration = 3.0
+skill_affects = Dictionary[int, float]({
+0: 20.0,
+2: 15.0
+})
+i_name = "Corner Proficiency"
+focus_cost = 15
+skill_points_cost = 24
+skill_icon = SubResource("PlaceholderTexture2D_coicx")
+metadata/_custom_type_script = "uid://bju3rqf4h6er8"

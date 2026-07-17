@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="PassiveSkill" format=3 uid="uid://cm3m4kjdpdeto"]
+
+[ext_resource type="Script" uid="uid://dowej2ujk8eio" path="res://scripts/classes/ability/PassiveSkill.gd" id="1_4lpr8"]
+[ext_resource type="Script" uid="uid://c6emb6pex6svy" path="res://scripts/classes/ability/passive_skill_conditions/PassiveSkillCondition.gd" id="1_xi3i3"]
+[ext_resource type="Script" uid="uid://cqaxu0v3kw35f" path="res://scripts/classes/ability/passive_skill_conditions/SkillConditionWeather.gd" id="2_gsivu"]
+
+[sub_resource type="Resource" id="Resource_t7x22"]
+script = ExtResource("2_gsivu")
+metadata/_custom_type_script = "uid://cqaxu0v3kw35f"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_40q88"]
+
+[resource]
+script = ExtResource("1_4lpr8")
+conditions = Array[ExtResource("1_xi3i3")]([SubResource("Resource_t7x22")])
+stat_bonus = Dictionary[int, int]({
+0: 150,
+2: 50
+})
+i_name = "Sunny Runner"
+focus_cost = 7
+skill_points_cost = 15
+skill_icon = SubResource("PlaceholderTexture2D_40q88")
+metadata/_custom_type_script = "uid://dowej2ujk8eio"

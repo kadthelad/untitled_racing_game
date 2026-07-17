@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Trait" format=3 uid="uid://d1805wtbohjcw"]
+
+[ext_resource type="Script" uid="uid://pce5inr6mhem" path="res://scripts/classes/ability/Trait.gd" id="1_oaj7m"]
+
+[resource]
+script = ExtResource("1_oaj7m")
+id = "pos_studious"
+i_name = "Studious"
+description = "You used to study more than the average runner.
+You start with more Intelligence stat."
+cost = 5
+incompatible_with = Array[String](["neg_slacker"])
+stat_modifiers = Dictionary[int, int]({
+3: 50
+})
+metadata/_custom_type_script = "uid://pce5inr6mhem"

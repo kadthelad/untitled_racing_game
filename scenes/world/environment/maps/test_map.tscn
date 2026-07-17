@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://hu2haup8tqb8"]
+
+[ext_resource type="PackedScene" uid="uid://bwasp4fm64ctx" path="res://scenes/world/environment/racecourses/racecourse_1.tscn" id="1_uotcw"]
+[ext_resource type="Script" uid="uid://rsfgvpb0s2f" path="res://scenes/world/environment/maps/race_handler.gd" id="2_l1kh6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l1kh6"]
+albedo_color = Color(0.20460054, 0.37846068, 0.18520442, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yovl4"]
+size = Vector3(10, 0.209, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uotcw"]
+size = Vector3(10, 0.16, 100)
+
+[sub_resource type="QuadMesh" id="QuadMesh_l1kh6"]
+size = Vector2(8.665, 0.135)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4475m"]
+albedo_color = Color(0.26293245, 0.26293245, 0.26293245, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uotcw"]
+
+[sub_resource type="Sky" id="Sky_l1kh6"]
+sky_material = SubResource("ProceduralSkyMaterial_uotcw")
+
+[sub_resource type="Environment" id="Environment_4475m"]
+background_mode = 2
+background_energy_multiplier = 1.5
+sky = SubResource("Sky_l1kh6")
+
+[node name="TestMap" type="Node3D" unique_id=1904606008]
+
+[node name="Racecourse1" parent="." unique_id=1645013793 instance=ExtResource("1_uotcw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.091484, -6.4112644, 0)
+material_override = SubResource("StandardMaterial3D_l1kh6")
+
+[node name="RaceHandler" type="Node" parent="." unique_id=1975334687 node_paths=PackedStringArray("racecourse")]
+script = ExtResource("2_l1kh6")
+racecourse = NodePath("../Racecourse1")
+
+[node name="PlacingCheckTimer" type="Timer" parent="RaceHandler" unique_id=1607086245]
+unique_name_in_owner = true
+
+[node name="SpawnPoint" type="StaticBody3D" parent="." unique_id=1955314821]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -2.20858, -6.922434, 250)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnPoint" unique_id=643823984]
+shape = SubResource("BoxShape3D_yovl4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnPoint" unique_id=41549878]
+mesh = SubResource("BoxMesh_uotcw")
+
+[node name="50m" type="MeshInstance3D" parent="SpawnPoint/MeshInstance3D" unique_id=1850193618]
+transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, 1, 0, -1, -4.3711392e-08, 0, 0.1332, -40)
+mesh = SubResource("QuadMesh_l1kh6")
+surface_material_override/0 = SubResource("StandardMaterial3D_4475m")
+
+[node name="Label3D" type="Label3D" parent="SpawnPoint/MeshInstance3D/50m" unique_id=1923412939]
+transform = Transform3D(1, 0, 0, 0, 1, -3.5527137e-15, 0, 3.5527137e-15, 1, 0, 0, 0.4352051)
+billboard = 1
+text = "50 m"
+
+[node name="100m" type="MeshInstance3D" parent="SpawnPoint/MeshInstance3D" unique_id=1019667172]
+transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, 1, 0, -1, -4.3711392e-08, 0, 0.13960001, -30)
+mesh = SubResource("QuadMesh_l1kh6")
+surface_material_override/0 = SubResource("StandardMaterial3D_4475m")
+
+[node name="Label3D" type="Label3D" parent="SpawnPoint/MeshInstance3D/100m" unique_id=1498390157]
+transform = Transform3D(1, 0, 0, 0, 1, -3.5527137e-15, 0, 3.5527137e-15, 1, 0, 0, 0.4352051)
+billboard = 1
+text = "100 m"
+
+[node name="150m" type="MeshInstance3D" parent="SpawnPoint/MeshInstance3D" unique_id=378068355]
+transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, 1, 0, -1, -4.3711392e-08, 0, 0.13960001, -20)
+mesh = SubResource("QuadMesh_l1kh6")
+surface_material_override/0 = SubResource("StandardMaterial3D_4475m")
+
+[node name="Label3D" type="Label3D" parent="SpawnPoint/MeshInstance3D/150m" unique_id=1735327166]
+transform = Transform3D(1, 0, 0, 0, 1, -3.5527137e-15, 0, 3.5527137e-15, 1, 0, 0, 0.4352051)
+billboard = 1
+text = "150 m"
+
+[node name="200m" type="MeshInstance3D" parent="SpawnPoint/MeshInstance3D" unique_id=1577337402]
+transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, 1, 0, -1, -4.3711392e-08, 0, 0.1332, -10)
+mesh = SubResource("QuadMesh_l1kh6")
+surface_material_override/0 = SubResource("StandardMaterial3D_4475m")
+
+[node name="Label3D" type="Label3D" parent="SpawnPoint/MeshInstance3D/200m" unique_id=1155396595]
+transform = Transform3D(1, 0, 0, 0, 1, -3.5527137e-15, 0, 3.5527137e-15, 1, 0, 0, 0.4352051)
+billboard = 1
+text = "200 m"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1839869889]
+environment = SubResource("Environment_4475m")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=779996277]
+_spawnable_scenes = PackedStringArray("uid://bus38b2cif1sw")
+spawn_path = NodePath("..")
+
+[connection signal="ready" from="RaceHandler" to="RaceHandler" method="_on_ready"]
+[connection signal="timeout" from="RaceHandler/PlacingCheckTimer" to="RaceHandler" method="_on_placing_check_timer_timeout"]
+[connection signal="spawned" from="MultiplayerSpawner" to="RaceHandler" method="_on_multiplayer_spawner_spawned"]

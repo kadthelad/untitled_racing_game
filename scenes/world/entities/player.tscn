@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://bus38b2cif1sw"]
+
+[ext_resource type="Script" uid="uid://2qf8hudpcq1r" path="res://scenes/world/entities/player.gd" id="1_cceqt"]
+[ext_resource type="Script" uid="uid://ce2ogqmxcrwny" path="res://scenes/world/entities/player_camera_controller.gd" id="2_nvt76"]
+[ext_resource type="Script" uid="uid://bpi3t5y6dc112" path="res://scenes/world/entities/player_movement_controller.gd" id="3_3e2st"]
+[ext_resource type="Script" uid="uid://bj5xi3275y2x7" path="res://scenes/world/entities/racer_race_controller.gd" id="4_d21hd"]
+[ext_resource type="PackedScene" uid="uid://puruj5to6pp8" path="res://assets/models/entity/DoberLowPoly1.glb" id="4_n50kl"]
+[ext_resource type="PackedScene" uid="uid://bk8kqoj4tp1qq" path="res://scenes/ui/screens/running_ui.tscn" id="4_ypeb4"]
+[ext_resource type="PackedScene" uid="uid://cohohllh1stue" path="res://scenes/ui/components/DynamicLabel3D.tscn" id="6_3yndf"]
+[ext_resource type="PackedScene" uid="uid://6tnd5xd7g3js" path="res://scenes/ui/components/ValueBar3D.tscn" id="6_30u66"]
+[ext_resource type="FontFile" uid="uid://djiey2j4galij" path="res://assets/fonts/Bangers/Bangers-Regular.ttf" id="7_elg0s"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_eby4c"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cceqt"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=1059813952]
+axis_lock_angular_z = true
+script = ExtResource("1_cceqt")
+
+[node name="PlayerCameraController" type="Node" parent="." unique_id=1144865456]
+unique_name_in_owner = true
+script = ExtResource("2_nvt76")
+
+[node name="PlayerMovementController" type="Node" parent="." unique_id=284868527]
+unique_name_in_owner = true
+script = ExtResource("3_3e2st")
+
+[node name="RacerRaceController" type="Node" parent="." unique_id=511624510]
+unique_name_in_owner = true
+script = ExtResource("4_d21hd")
+
+[node name="PlayerBodyCollision" type="CollisionShape3D" parent="." unique_id=1017544331]
+shape = SubResource("CylinderShape3D_eby4c")
+
+[node name="PlayerMesh" type="Node3D" parent="." unique_id=1348711327]
+unique_name_in_owner = true
+
+[node name="DoberLowPoly1" parent="PlayerMesh" unique_id=2064378958 instance=ExtResource("4_n50kl")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -1, 0)
+
+[node name="CameraYPivot" type="Node3D" parent="." unique_id=1299207301]
+unique_name_in_owner = true
+
+[node name="CameraXPivot" type="Node3D" parent="CameraYPivot" unique_id=2060415673]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraYPivot/CameraXPivot" unique_id=499415477]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.68, 1.8, 3)
+
+[node name="RunningUI3DPivot" type="Node3D" parent="CameraYPivot" unique_id=2034648912]
+
+[node name="UINodes" type="Node3D" parent="CameraYPivot/RunningUI3DPivot" unique_id=1167725286]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8595712, 0, 0)
+
+[node name="TargetSpeedValueBar" parent="CameraYPivot/RunningUI3DPivot/UINodes" unique_id=2089824330 instance=ExtResource("6_30u66")]
+unique_name_in_owner = true
+text = "Speed"
+bar_color = Color(0.22041732, 0.38301504, 0.21519339, 1)
+background_color = Color(0.83757305, 0.5370536, 0.33671024, 1)
+
+[node name="StaminaValueBar" parent="CameraYPivot/RunningUI3DPivot/UINodes" unique_id=814534117 instance=ExtResource("6_30u66")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3026688, 0, 0)
+text = "Stamina"
+bar_color = Color(0.30469462, 0.49018312, 0.6711688, 1)
+background_color = Color(0.4754268, 0.1559841, 0.09815612, 1)
+
+[node name="PositionLabel" type="Label3D" parent="CameraYPivot/RunningUI3DPivot/UINodes" unique_id=1717199457]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75897324, -0.640521, 0)
+billboard = 1
+text = "??/??"
+
+[node name="InformationDynamicLabel3D" parent="CameraYPivot/RunningUI3DPivot/UINodes" unique_id=1422622855 instance=ExtResource("6_3yndf")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6292367, 0.7449155, 0)
+font = ExtResource("7_elg0s")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=593208445]
+replication_config = SubResource("SceneReplicationConfig_cceqt")
+
+[node name="RunningUI" parent="." unique_id=1032889155 instance=ExtResource("4_ypeb4")]
+unique_name_in_owner = true
+
+[connection signal="change_placing" from="." to="RacerRaceController" method="_on_player_change_placing"]

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://bl4vet0gicq3t"]
+
+[ext_resource type="Script" uid="uid://bju3rqf4h6er8" path="res://scripts/classes/ability/ActiveSkill.gd" id="1_k74yv"]
+
+[resource]
+script = ExtResource("1_k74yv")
+activation_cause = 3
+skill_duration = 2.0
+i_name = "UNNAMED active SKILL1"
+focus_cost = 1
+skill_points_cost = 20
+stat_bonus = Dictionary[int, int]({
+0: 50
+})
+metadata/_custom_type_script = "uid://bju3rqf4h6er8"

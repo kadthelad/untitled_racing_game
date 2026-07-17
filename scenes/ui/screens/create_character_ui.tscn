@@ -1,0 +1,342 @@
+[gd_scene format=3 uid="uid://xxcolq1x3egw"]
+
+[ext_resource type="Script" uid="uid://8w2wgjexirud" path="res://scenes/ui/screens/create_character_ui.gd" id="1_1pfu7"]
+[ext_resource type="PackedScene" uid="uid://djuthid1cmwur" path="res://scenes/ui/components/skill_node.tscn" id="1_on7we"]
+[ext_resource type="PackedScene" uid="uid://brvcm2up7gape" path="res://scenes/ui/components/stat_slider.tscn" id="2_tdo2n"]
+[ext_resource type="Resource" uid="uid://ccbfsrmjnws4b" path="res://scripts/resources/skills/active_skills/corner_acceleration.tres" id="4_6c4q0"]
+[ext_resource type="Resource" uid="uid://cni4w1wxyy5ba" path="res://scripts/resources/skills/active_skills/corner_recovery.tres" id="5_brqse"]
+[ext_resource type="Resource" uid="uid://wu0oxkb0qv4o" path="res://scripts/resources/skills/active_skills/corner_proficiency.tres" id="6_cu4eh"]
+[ext_resource type="Resource" uid="uid://cm3m4kjdpdeto" path="res://scripts/resources/skills/passive_skills/sunny_runner.tres" id="7_cu4eh"]
+[ext_resource type="Resource" uid="uid://b67yd1o4oj0mf" path="res://scripts/resources/skills/passive_skills/grass_grounds_specialist.tres" id="8_in14h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdpoi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hbc3n"]
+font_size = 20
+font_color = Color(0.61960787, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1kokg"]
+font_size = 20
+font_color = Color(0.67749345, 0.93003154, 0.5075234, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1pfu7"]
+font_size = 20
+font_color = Color(1, 0.42740333, 0.42340556, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tdo2n"]
+font_size = 20
+font_color = Color(1, 0.92677736, 0.56885767, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jgn86"]
+font_size = 20
+font_color = Color(0.922127, 0.60405886, 0.50379956, 1)
+
+[node name="create_character_ui" type="CanvasLayer" unique_id=1064950023]
+script = ExtResource("1_1pfu7")
+
+[node name="BG" type="Panel" parent="." unique_id=634060422]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdpoi")
+
+[node name="StatsTab" type="Panel" parent="BG" unique_id=928197577]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="BG/StatsTab" unique_id=1420613699]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BG/StatsTab/MarginContainer" unique_id=1201869570]
+layout_mode = 2
+
+[node name="StatPointsContainer" type="VBoxContainer" parent="BG/StatsTab/MarginContainer/HBoxContainer" unique_id=1663548121]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatPointsLeftLabel" type="Label" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=423507183]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+text = "Points left to spend: 2500"
+horizontal_alignment = 1
+
+[node name="StatResetButton" type="Button" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=902033841]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Reset points"
+
+[node name="SpeedLabel" type="Label" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=1652542860]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Speed"
+label_settings = SubResource("LabelSettings_hbc3n")
+horizontal_alignment = 1
+
+[node name="Speed" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=829587882 instance=ExtResource("2_tdo2n")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EnduranceLabel" type="Label" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=1372537469]
+layout_mode = 2
+text = "Endurance"
+label_settings = SubResource("LabelSettings_1kokg")
+horizontal_alignment = 1
+
+[node name="Endurance" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=1918511221 instance=ExtResource("2_tdo2n")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PowerLabel" type="Label" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=1326417473]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Power"
+label_settings = SubResource("LabelSettings_1pfu7")
+horizontal_alignment = 1
+
+[node name="Power" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=377214640 instance=ExtResource("2_tdo2n")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="IntelligenceLabel" type="Label" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=454018827]
+layout_mode = 2
+text = "Intelligence"
+label_settings = SubResource("LabelSettings_tdo2n")
+horizontal_alignment = 1
+
+[node name="Intelligence" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=760461564 instance=ExtResource("2_tdo2n")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WillpowerLabel" type="Label" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=1156045044]
+layout_mode = 2
+text = "Willpower"
+label_settings = SubResource("LabelSettings_jgn86")
+horizontal_alignment = 1
+
+[node name="Willpower" parent="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer" unique_id=2140567759 instance=ExtResource("2_tdo2n")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="CharacterDisplaySVC" type="SubViewportContainer" parent="BG/StatsTab/MarginContainer/HBoxContainer" unique_id=577017594]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="BG/StatsTab/MarginContainer/HBoxContainer/CharacterDisplaySVC" unique_id=1924680566]
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 0
+
+[node name="TraitsTab" type="Panel" parent="BG" unique_id=1289596118]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="BG/TraitsTab" unique_id=531714281]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BG/TraitsTab/MarginContainer" unique_id=662400072]
+layout_mode = 2
+
+[node name="TraitsToActivate" type="VBoxContainer" parent="BG/TraitsTab/MarginContainer/HBoxContainer" unique_id=234628271]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsToActivate" unique_id=99855958]
+layout_mode = 2
+text = "Positive Traits"
+horizontal_alignment = 1
+
+[node name="PosTraitsItemList" type="ItemList" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsToActivate" unique_id=231116704]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsToActivate" unique_id=650046487]
+layout_mode = 2
+text = "Positive Traits"
+horizontal_alignment = 1
+
+[node name="NegTraitsItemList" type="ItemList" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsToActivate" unique_id=1383211371]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TraitPointsLeftLabel" type="Label" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsToActivate" unique_id=1702154605]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+text = "Points left to spend: 10"
+horizontal_alignment = 1
+
+[node name="EmptyControl" type="Control" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsToActivate" unique_id=1891887749]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="TraitsActivted" type="VBoxContainer" parent="BG/TraitsTab/MarginContainer/HBoxContainer" unique_id=1307319817]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsActivted" unique_id=71308834]
+layout_mode = 2
+text = "Active Traits"
+horizontal_alignment = 1
+
+[node name="ActiveTraitsItemList" type="ItemList" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsActivted" unique_id=1345967841]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsActivted" unique_id=766424079]
+layout_mode = 2
+text = "Trait Effects"
+horizontal_alignment = 1
+
+[node name="TraitEffectsItemList" type="ItemList" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsActivted" unique_id=1899947494]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+allow_search = false
+
+[node name="TraitsResetButton" type="Button" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsActivted" unique_id=776019608]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 8
+text = "Return to default"
+
+[node name="EmptyControl" type="Control" parent="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsActivted" unique_id=806731010]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="SkillTab" type="Panel" parent="BG" unique_id=1799703513]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SkillNode" parent="BG/SkillTab" unique_id=2018152881 instance=ExtResource("1_on7we")]
+layout_mode = 1
+anchor_left = 0.6605903
+anchor_top = 0.7037037
+anchor_right = 0.7717014
+anchor_bottom = 0.90123457
+disabled = false
+skill = ExtResource("4_6c4q0")
+
+[node name="SkillNode" parent="BG/SkillTab/SkillNode" unique_id=806579258 instance=ExtResource("1_on7we")]
+layout_mode = 1
+anchor_left = 2.109375
+anchor_top = -2.28125
+anchor_right = 4.109375
+anchor_bottom = -0.28125
+skill = ExtResource("5_brqse")
+
+[node name="SkillNode" parent="BG/SkillTab/SkillNode/SkillNode" unique_id=1587762521 instance=ExtResource("1_on7we")]
+layout_mode = 1
+anchor_left = 1.03125
+anchor_top = -3.25
+anchor_right = 3.03125
+anchor_bottom = -1.25
+skill = ExtResource("6_cu4eh")
+
+[node name="SkillNode2" parent="BG/SkillTab" unique_id=567666271 instance=ExtResource("1_on7we")]
+layout_mode = 1
+anchor_left = 0.074652776
+anchor_top = 0.09876543
+anchor_right = 0.13020833
+anchor_bottom = 0.19753087
+offset_left = 224.0
+offset_top = 401.0
+offset_right = 224.0
+offset_bottom = 401.0
+disabled = false
+skill = ExtResource("7_cu4eh")
+
+[node name="SkillNode3" parent="BG/SkillTab" unique_id=777065451 instance=ExtResource("1_on7we")]
+layout_mode = 1
+anchor_left = -0.07899305
+anchor_top = 0.09876543
+anchor_right = -0.0234375
+anchor_bottom = 0.19753087
+offset_left = 224.0
+offset_top = 401.0
+offset_right = 224.0
+offset_bottom = 401.0
+disabled = false
+skill = ExtResource("8_in14h")
+
+[node name="BackButton" type="Button" parent="BG" unique_id=1349650189]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 45.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+text = "Back"
+
+[node name="NextButton" type="Button" parent="BG" unique_id=546387243]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+text = "Next"
+
+[connection signal="pressed" from="BG/StatsTab/MarginContainer/HBoxContainer/StatPointsContainer/StatResetButton" to="." method="_on_stat_reset_button_pressed"]
+[connection signal="item_selected" from="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsToActivate/PosTraitsItemList" to="." method="_on_pos_traits_item_list_item_selected"]
+[connection signal="item_selected" from="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsToActivate/NegTraitsItemList" to="." method="_on_neg_traits_item_list_item_selected"]
+[connection signal="item_selected" from="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsActivted/ActiveTraitsItemList" to="." method="_on_active_traits_item_list_item_selected"]
+[connection signal="pressed" from="BG/TraitsTab/MarginContainer/HBoxContainer/TraitsActivted/TraitsResetButton" to="." method="_on_traits_reset_button_pressed"]
+[connection signal="pressed" from="BG/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="BG/NextButton" to="." method="_on_next_button_pressed"]

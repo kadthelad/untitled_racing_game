@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bk8kqoj4tp1qq"]
+
+[ext_resource type="Script" uid="uid://c5ymkb4dnlv2a" path="res://scenes/ui/screens/running_ui.gd" id="1_hau3c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hau3c"]
+font_size = 20
+font_color = Color(0.7649341, 1, 0.62985563, 1)
+
+[node name="RunningUI" type="CanvasLayer" unique_id=1032889155]
+script = ExtResource("1_hau3c")
+
+[node name="Control" type="Control" parent="." unique_id=126480027]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=186978781]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=61790130]
+layout_mode = 2
+
+[node name="TopBarContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=1536246127]
+layout_mode = 2
+
+[node name="SettingsButton" type="Button" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=163555720]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Settings"
+
+[node name="RaceTimeLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=1866861425]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "ONGOING_RACE_TIME"
+
+[node name="SpeedLabel" type="Label" parent="Control/MarginContainer/VBoxContainer" unique_id=1704995816]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+text = "0.0 Km/h"
+label_settings = SubResource("LabelSettings_hau3c")
+horizontal_alignment = 1

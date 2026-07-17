@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://ccbfsrmjnws4b"]
+
+[ext_resource type="Script" uid="uid://bju3rqf4h6er8" path="res://scripts/classes/ability/ActiveSkill.gd" id="1_jwspk"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jwspk"]
+
+[resource]
+script = ExtResource("1_jwspk")
+activation_cause = 3
+skill_duration = 5.0
+skill_affects = Dictionary[int, float]({
+0: 10.0
+})
+i_name = "Corner Acceleration"
+focus_cost = 10
+skill_points_cost = 15
+skill_icon = SubResource("PlaceholderTexture2D_jwspk")
+metadata/_custom_type_script = "uid://bju3rqf4h6er8"

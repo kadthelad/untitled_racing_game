@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://bf4mluyjsbjsj"]
+
+[ext_resource type="Script" uid="uid://solpc63flbb8" path="res://scenes/ui/screens/game_ui.gd" id="1_uesoi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8m7o1"]
+font_size = 12
+font_color = Color(1, 1, 1, 0.4392157)
+
+[node name="GameUI" type="CanvasLayer" unique_id=1304958795]
+script = ExtResource("1_uesoi")
+
+[node name="Control" type="Control" parent="." unique_id=615407776]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1498023507]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1325565513]
+layout_mode = 2
+
+[node name="TopBarContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=1329037222]
+layout_mode = 2
+
+[node name="SettingsButton" type="Button" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=1839561082]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Settings"
+
+[node name="CharacterButton" type="Button" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=1360239223]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Character"
+
+[node name="SkillsButton" type="Button" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=520620886]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Skills"
+
+[node name="RaceTimeLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=1624429994]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "ONGOING_RACE_TIME"
+
+[node name="MapButton" type="Button" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=1898358425]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Current Map"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer" unique_id=573630944]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+text = "\"K\" to see keybinds
+\"Escape\"/\"LeftCtrl\" to unlock cursor"
+label_settings = SubResource("LabelSettings_8m7o1")
+
+[node name="JoinRacePanel" type="Panel" parent="Control" unique_id=1217337993]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26822916
+anchor_top = 0.28858024
+anchor_right = 0.7317708
+anchor_bottom = 0.71141976
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/JoinRacePanel" unique_id=384541338]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/JoinRacePanel/MarginContainer" unique_id=565585241]
+layout_mode = 2
+
+[node name="RaceInfoLabel" type="Label" parent="Control/JoinRacePanel/MarginContainer/VBoxContainer" unique_id=1600261060]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Race : RACENAME
+Distance : RACEDISTANCE
+Ground Type : GROUNDTYPE
+Weather : WEATHER
+Runners Participating : PARTICIPANTSCOUNT"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/JoinRacePanel/MarginContainer/VBoxContainer" unique_id=1589494180]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="SkipRaceButton" type="Button" parent="Control/JoinRacePanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1050033816]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.73292726, 0.1663748, 0.18377993, 1)
+text = "Skip Race"
+
+[node name="JoinRaceButton" type="Button" parent="Control/JoinRacePanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2129982517]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.12911606, 0.58944255, 0.1268999, 1)
+text = "Join Race"
+
+[node name="KeybindsRichTextLabel" type="RichTextLabel" parent="Control" unique_id=739463903]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013020833
+anchor_top = 0.15123457
+anchor_right = 0.2560764
+anchor_bottom = 0.86882716
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+bbcode_enabled = true
+text = "[color=orange]K[/color] - Show/Hide this window
+[color=orange]Echap[/color]/[color=orange]LeftCtrl[/color] - Lock/Unlock mouse cursor"

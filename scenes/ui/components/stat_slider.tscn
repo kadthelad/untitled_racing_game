@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://brvcm2up7gape"]
+
+[ext_resource type="Script" uid="uid://diynmp8utrp6p" path="res://scenes/ui/components/stat_slider.gd" id="1_7rvm7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_on7we"]
+font_size = 20
+
+[node name="StatSlider" type="HBoxContainer" unique_id=829587882]
+script = ExtResource("1_7rvm7")
+
+[node name="ValueLabel" type="Label" parent="." unique_id=695362040]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_on7we")
+horizontal_alignment = 1
+
+[node name="StatSlider" type="HSlider" parent="." unique_id=1212600929]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1200.0
+step = 10.0
+scrollable = false
+tick_count = 12
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="RankLabel" type="Label" parent="." unique_id=1118682258]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "G"
+label_settings = SubResource("LabelSettings_on7we")
+horizontal_alignment = 1
+
+[connection signal="value_changed" from="StatSlider" to="." method="_on_stat_slider_value_changed"]

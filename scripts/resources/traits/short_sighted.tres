@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Trait" format=3 uid="uid://b235fkjph0ui2"]
+
+[ext_resource type="Script" uid="uid://pce5inr6mhem" path="res://scripts/classes/ability/Trait.gd" id="1_w0bw5"]
+
+[resource]
+script = ExtResource("1_w0bw5")
+id = "neg_short_sighted"
+i_name = "Short-Sighted"
+description = "You always struggled to see even with your glasses.
+Your vision will be more affected during a race."
+is_positive = false
+cost = 2
+incompatible_with = Array[String](["pos_hawks_eye"])
+hidden_stat_multipliers = Dictionary[int, float]({
+3: 0.5
+})
+metadata/_custom_type_script = "uid://pce5inr6mhem"

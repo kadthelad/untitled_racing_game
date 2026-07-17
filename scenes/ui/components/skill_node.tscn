@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://djuthid1cmwur"]
+
+[ext_resource type="Script" uid="uid://vvqbq6jdm74j" path="res://scenes/ui/components/skill_node.gd" id="1_n6n0j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3aumt"]
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6n0j"]
+bg_color = Color(0.32491216, 0.42515352, 0.476241, 1)
+skew = Vector2(-0.31, 0.07)
+border_width_left = 7
+
+[sub_resource type="Theme" id="Theme_gd0wo"]
+Label/styles/normal = SubResource("StyleBoxFlat_n6n0j")
+
+[sub_resource type="LabelSettings" id="LabelSettings_n6n0j"]
+font_color = Color(0, 0.7806416, 0.78113115, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gd0wo"]
+font_color = Color(0.36302215, 0.79644316, 0.30392423, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="SkillNode" type="TextureButton" unique_id=2018152881]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = -1
+anchor_right = 0.055555556
+anchor_bottom = 0.09876543
+offset_right = -64.0
+offset_bottom = -64.0
+disabled = true
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("1_n6n0j")
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelUnlockLabel" type="Label" parent="." unique_id=327157140]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "0/5"
+label_settings = SubResource("LabelSettings_3aumt")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ConnectionLine2D" type="Line2D" parent="." unique_id=149954856]
+unique_name_in_owner = true
+show_behind_parent = true
+top_level = true
+z_index = -1
+width = 3.0
+default_color = Color(0.19793725, 0.19793722, 0.19793722, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=857780644]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 2.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_gd0wo")
+metadata/_edit_use_anchors_ = true
+
+[node name="SkillPointsLabel" type="Label" parent="VBoxContainer" unique_id=960048298]
+unique_name_in_owner = true
+layout_mode = 2
+text = "200 pts"
+label_settings = SubResource("LabelSettings_n6n0j")
+
+[node name="FocusPointsLabel" type="Label" parent="VBoxContainer" unique_id=744452379]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100 fcs"
+label_settings = SubResource("LabelSettings_gd0wo")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

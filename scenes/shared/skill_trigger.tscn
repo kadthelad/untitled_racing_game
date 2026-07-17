@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://140vqrahgx5v"]
+
+[ext_resource type="Script" uid="uid://dqkv20vwyvuoq" path="res://scenes/shared/skill_trigger.gd" id="1_xdw1h"]
+
+[node name="SkillTrigger" type="Node3D" unique_id=252729365]
+script = ExtResource("1_xdw1h")
+
+[node name="TriggerArea3D" type="Area3D" parent="." unique_id=807711525]
+
+[node name="TriggerCollisionShape3D" type="CollisionShape3D" parent="TriggerArea3D" unique_id=1209225208]
+debug_color = Color(0.78184295, 0, 0.45167416, 0.95686275)

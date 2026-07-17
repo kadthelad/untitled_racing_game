@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Trait" format=3 uid="uid://4757hp1p45xy"]
+
+[ext_resource type="Script" uid="uid://pce5inr6mhem" path="res://scripts/classes/ability/Trait.gd" id="1_jtibr"]
+
+[resource]
+script = ExtResource("1_jtibr")
+id = "neg_slacker"
+i_name = "Slacker"
+description = "You skip classes, and as a consequence you have lower intelligence.
+You start with less Intelligence."
+is_positive = false
+cost = 3
+incompatible_with = Array[String](["pos_studious"])
+stat_modifiers = Dictionary[int, int]({
+3: 50
+})
+metadata/_custom_type_script = "uid://pce5inr6mhem"

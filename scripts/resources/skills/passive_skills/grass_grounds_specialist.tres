@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="PassiveSkill" format=3 uid="uid://b67yd1o4oj0mf"]
+
+[ext_resource type="Script" uid="uid://c6emb6pex6svy" path="res://scripts/classes/ability/passive_skill_conditions/PassiveSkillCondition.gd" id="1_r6cud"]
+[ext_resource type="Script" uid="uid://dnhb2g4fksgy1" path="res://scripts/classes/ability/passive_skill_conditions/SkillConditionGround.gd" id="2_n3vl3"]
+[ext_resource type="Script" uid="uid://dowej2ujk8eio" path="res://scripts/classes/ability/PassiveSkill.gd" id="3_dyjrw"]
+
+[sub_resource type="Resource" id="Resource_4ujvk"]
+script = ExtResource("2_n3vl3")
+metadata/_custom_type_script = "uid://dnhb2g4fksgy1"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bg1n3"]
+
+[resource]
+script = ExtResource("3_dyjrw")
+conditions = Array[ExtResource("1_r6cud")]([SubResource("Resource_4ujvk")])
+stat_bonus = Dictionary[int, int]({
+0: 150
+})
+i_name = "Grass Specialist"
+focus_cost = 5
+skill_points_cost = 12
+skill_icon = SubResource("PlaceholderTexture2D_bg1n3")
+metadata/_custom_type_script = "uid://dowej2ujk8eio"

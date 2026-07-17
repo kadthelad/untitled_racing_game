@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cohohllh1stue"]
+
+[ext_resource type="Script" uid="uid://bxd2cjx5yvcsl" path="res://scenes/ui/components/dynamic_label_3d.gd" id="1_hd1sj"]
+
+[node name="DynamicLabel3D" type="Node3D" unique_id=1422622855]
+script = ExtResource("1_hd1sj")

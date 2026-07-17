@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Race" format=3 uid="uid://cjpegcddtawmb"]
+
+[ext_resource type="Script" uid="uid://bkthhgvm1ksy5" path="res://scripts/classes/environment/Race.gd" id="1_jwdss"]
+
+[resource]
+script = ExtResource("1_jwdss")
+i_name = "Test race"
+distance = 1500
+metadata/_custom_type_script = "uid://bkthhgvm1ksy5"

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://7rj0knwm1udf"]
+
+[ext_resource type="Script" uid="uid://dy8w3jsf25i28" path="res://scenes/ui/screens/main_menu_ui.gd" id="1_blq2i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_blq2i"]
+font_size = 24
+font_color = Color(0.46300733, 0.69658285, 0.42787045, 1)
+
+[node name="MainMenuUI" type="CanvasLayer" unique_id=394782547]
+script = ExtResource("1_blq2i")
+
+[node name="Control" type="Control" parent="." unique_id=504489272]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=939718091]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer" unique_id=197052828]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/VBoxContainer" unique_id=1722442924]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Untitled Racing Game"
+label_settings = SubResource("LabelSettings_blq2i")
+horizontal_alignment = 1
+
+[node name="CreateServerButton" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=1179962867]
+layout_mode = 2
+text = "Create Server"
+
+[node name="JoinServerButton" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=1316200988]
+layout_mode = 2
+text = "Join Server"
+
+[node name="TESTMAPButton" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=416580335]
+layout_mode = 2
+text = "[DEBUG] TESTMAP"
+
+[node name="CreateCharacterButton" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=556775158]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Create Character"
+
+[node name="EmptyControl" type="Control" parent="Control/HBoxContainer" unique_id=3774491]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/CreateServerButton" to="." method="_on_create_server_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/JoinServerButton" to="." method="_on_join_server_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/TESTMAPButton" to="." method="_on_testmap_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/CreateCharacterButton" to="." method="_on_create_character_button_pressed"]
