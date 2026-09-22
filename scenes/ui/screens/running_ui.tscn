@@ -1,10 +1,46 @@
 [gd_scene format=3 uid="uid://bk8kqoj4tp1qq"]
 
 [ext_resource type="Script" uid="uid://c5ymkb4dnlv2a" path="res://scenes/ui/screens/running_ui.gd" id="1_hau3c"]
+[ext_resource type="Script" uid="uid://bba83r1u7yq8p" path="res://scenes/ui/screens/player_info_control.gd" id="2_ip2sd"]
+[ext_resource type="PackedScene" uid="uid://b6gxiwhpygqe1" path="res://scenes/ui/components/stat_progress.tscn" id="3_darq3"]
+[ext_resource type="PackedScene" uid="uid://c2u4t8n3xkqpv" path="res://scenes/ui/components/value_bar.tscn" id="4_valbr"]
+[ext_resource type="PackedScene" uid="uid://dqmkl0f3xh8yr" path="res://scenes/ui/components/dynamic_label.tscn" id="5_dynlbl"]
+
+[sub_resource type="Theme" id="Theme_sdpoi"]
+Label/colors/font_color = Color(0.19643265, 0.55470365, 0.12307172, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 8
+Label/fonts/font = null
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdpoi"]
+bg_color = Color(0.62559795, 0.62559676, 0.6255971, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_darq3"]
+font_size = 20
+font_color = Color(0.61960787, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ql18m"]
+font_size = 20
+font_color = Color(0.67749345, 0.93003154, 0.5075234, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wc5tl"]
+font_size = 20
+font_color = Color(1, 0.42740333, 0.42340556, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_prbbq"]
+font_size = 20
+font_color = Color(1, 0.92677736, 0.56885767, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jcyer"]
+font_size = 20
+font_color = Color(0.922127, 0.60405886, 0.50379956, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hau3c"]
 font_size = 20
 font_color = Color(0.7649341, 1, 0.62985563, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sdpoi"]
+font_size = 20
 
 [node name="RunningUI" type="CanvasLayer" unique_id=1032889155]
 script = ExtResource("1_hau3c")
@@ -47,10 +83,170 @@ layout_mode = 2
 size_flags_horizontal = 6
 text = "ONGOING_RACE_TIME"
 
+[node name="LeaveMatchButton" type="Button" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=649844238]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.73292726, 0.1663748, 0.18377993, 1)
+text = "Leave Match"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=731744512]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerInfoControl" type="Control" parent="Control/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1776288305]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(300, 500)
+custom_maximum_size = Vector2(300, 500)
+layout_mode = 2
+theme = SubResource("Theme_sdpoi")
+script = ExtResource("2_ip2sd")
+
+[node name="BGPanel" type="Panel" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl" unique_id=1419444457]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdpoi")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel" unique_id=1687056630]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer" unique_id=1780960462]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=939807138]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "PLAYER_NAME"
+horizontal_alignment = 1
+
+[node name="SpeedLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=532981407]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Speed"
+label_settings = SubResource("LabelSettings_darq3")
+horizontal_alignment = 1
+
+[node name="Speed" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=829587882 instance=ExtResource("3_darq3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EnduranceLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=436109762]
+layout_mode = 2
+text = "Endurance"
+label_settings = SubResource("LabelSettings_ql18m")
+horizontal_alignment = 1
+
+[node name="Stamina" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=544922638 instance=ExtResource("3_darq3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PowerLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=328949268]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Power"
+label_settings = SubResource("LabelSettings_wc5tl")
+horizontal_alignment = 1
+
+[node name="Strength" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=1399081511 instance=ExtResource("3_darq3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="IntelligenceLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=1167418178]
+layout_mode = 2
+text = "Intelligence"
+label_settings = SubResource("LabelSettings_prbbq")
+horizontal_alignment = 1
+
+[node name="Intelligence" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=96806948 instance=ExtResource("3_darq3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WillpowerLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=552672275]
+layout_mode = 2
+text = "Willpower"
+label_settings = SubResource("LabelSettings_jcyer")
+horizontal_alignment = 1
+
+[node name="Willpower" parent="Control/MarginContainer/VBoxContainer/HBoxContainer/PlayerInfoControl/BGPanel/MarginContainer/VBoxContainer" unique_id=22436680 instance=ExtResource("3_darq3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RunningStatsContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=1175212834]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RunningStatsContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/RunningStatsContainer" unique_id=1280830042]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TargetSpeedValueBar" parent="Control/MarginContainer/VBoxContainer/RunningStatsContainer/RunningStatsContainer" unique_id=277773683 instance=ExtResource("4_valbr")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Speed"
+bar_color = Color(0.22041732, 0.38301504, 0.21519339, 1)
+background_color = Color(0.83757305, 0.5370536, 0.33671024, 1)
+
+[node name="StaminaValueBar" parent="Control/MarginContainer/VBoxContainer/RunningStatsContainer/RunningStatsContainer" unique_id=1123142924 instance=ExtResource("4_valbr")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Stamina"
+bar_color = Color(0.30469462, 0.49018312, 0.6711688, 1)
+background_color = Color(0.4754268, 0.1559841, 0.09815612, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/RunningStatsContainer" unique_id=2042487011]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="InformationLabel" parent="Control/MarginContainer/VBoxContainer/RunningStatsContainer/VBoxContainer" unique_id=1414364619 instance=ExtResource("5_dynlbl")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PositionLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/RunningStatsContainer/VBoxContainer" unique_id=2087936922]
+unique_name_in_owner = true
+layout_mode = 2
+text = "??/??"
+horizontal_alignment = 1
+
 [node name="SpeedLabel" type="Label" parent="Control/MarginContainer/VBoxContainer" unique_id=1704995816]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 10
-text = "0.0 Km/h"
+size_flags_vertical = 8
+text = "0.0 km/h"
 label_settings = SubResource("LabelSettings_hau3c")
 horizontal_alignment = 1
+
+[node name="InteractLabel" type="Label" parent="Control" unique_id=780561116]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45399305
+anchor_top = 0.58179015
+anchor_right = 0.5460069
+anchor_bottom = 0.625
+offset_top = -3.0517578e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "[F] Interact"
+label_settings = SubResource("LabelSettings_sdpoi")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/TopBarContainer/LeaveMatchButton" to="." method="_on_leave_match_button_pressed"]

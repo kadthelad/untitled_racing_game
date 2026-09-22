@@ -6,6 +6,10 @@
 font_size = 24
 font_color = Color(0.46300733, 0.69658285, 0.42787045, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_status"]
+font_size = 14
+font_color = Color(0.83757305, 0.5370536, 0.33671024, 1)
+
 [node name="MainMenuUI" type="CanvasLayer" unique_id=394782547]
 script = ExtResource("1_blq2i")
 
@@ -37,11 +41,38 @@ text = "Untitled Racing Game"
 label_settings = SubResource("LabelSettings_blq2i")
 horizontal_alignment = 1
 
-[node name="CreateServerButton" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=1179962867]
+[node name="CreateServerRow" type="HBoxContainer" parent="Control/HBoxContainer/VBoxContainer" unique_id=1655898162]
+layout_mode = 2
+alignment = 1
+
+[node name="CreateServerButton" type="Button" parent="Control/HBoxContainer/VBoxContainer/CreateServerRow" unique_id=431812830]
 layout_mode = 2
 text = "Create Server"
 
-[node name="JoinServerButton" type="Button" parent="Control/HBoxContainer/VBoxContainer" unique_id=1316200988]
+[node name="MinPlayersLabel" type="Label" parent="Control/HBoxContainer/VBoxContainer/CreateServerRow" unique_id=925202319]
+layout_mode = 2
+text = "Min players:"
+vertical_alignment = 1
+
+[node name="MinPlayersSpinBox" type="SpinBox" parent="Control/HBoxContainer/VBoxContainer/CreateServerRow" unique_id=1808118339]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+
+[node name="JoinServerRow" type="HBoxContainer" parent="Control/HBoxContainer/VBoxContainer" unique_id=573108267]
+layout_mode = 2
+alignment = 1
+
+[node name="JoinAddressLineEdit" type="LineEdit" parent="Control/HBoxContainer/VBoxContainer/JoinServerRow" unique_id=464403245]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "Host IP address"
+
+[node name="JoinServerButton" type="Button" parent="Control/HBoxContainer/VBoxContainer/JoinServerRow" unique_id=1761186030]
 layout_mode = 2
 text = "Join Server"
 
@@ -54,11 +85,18 @@ layout_mode = 2
 size_flags_vertical = 2
 text = "Create Character"
 
+[node name="StatusLabel" type="Label" parent="Control/HBoxContainer/VBoxContainer" unique_id=911728919]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 2
+label_settings = SubResource("LabelSettings_status")
+horizontal_alignment = 1
+
 [node name="EmptyControl" type="Control" parent="Control/HBoxContainer" unique_id=3774491]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/CreateServerButton" to="." method="_on_create_server_button_pressed"]
-[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/JoinServerButton" to="." method="_on_join_server_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/CreateServerRow/CreateServerButton" to="." method="_on_create_server_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/JoinServerRow/JoinServerButton" to="." method="_on_join_server_button_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/TESTMAPButton" to="." method="_on_testmap_button_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/VBoxContainer/CreateCharacterButton" to="." method="_on_create_character_button_pressed"]

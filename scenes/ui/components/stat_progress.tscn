@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b6gxiwhpygqe1"]
+
+[ext_resource type="Script" uid="uid://ccx4qibx3cfv8" path="res://scenes/ui/components/stat_progress.gd" id="1_qqqpk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_on7we"]
+font_size = 20
+font_color = Color(0.8776157, 0.8776158, 0.8776157, 1)
+
+[node name="StatSlider" type="HBoxContainer" unique_id=829587882]
+size_flags_horizontal = 3
+script = ExtResource("1_qqqpk")
+
+[node name="ValueLabel" type="Label" parent="." unique_id=695362040]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "0"
+label_settings = SubResource("LabelSettings_on7we")
+horizontal_alignment = 1
+
+[node name="StatSlider" type="ProgressBar" parent="." unique_id=283547068]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1200.0
+step = 10.0
+show_percentage = false
+
+[node name="RankLabel" type="Label" parent="." unique_id=1118682258]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "G"
+label_settings = SubResource("LabelSettings_on7we")
+horizontal_alignment = 1
+
+[connection signal="value_changed" from="StatSlider" to="." method="_on_stat_slider_value_changed"]

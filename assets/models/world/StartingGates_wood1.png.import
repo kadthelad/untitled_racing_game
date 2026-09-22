@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5onmccav13fs"
-path.s3tc="res://.godot/imported/DoberLowPoly1_dobercolours.png-1695e0318d060867e5f7c1361bfc62eb.s3tc.ctex"
+uid="uid://jef2otk8tcn7"
+path.s3tc="res://.godot/imported/StartingGates_wood1.png-493bdfb5e6afab8f76704a3e63351b19.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "ad385004eef1e1b2a20330944d4e9d97"
+"md5": "ac1f2aa37b00234262588e68cbb92151"
 }
 
 [deps]
 
-source_file="res://assets/models/entity/DoberLowPoly1_dobercolours.png"
-dest_files=["res://.godot/imported/DoberLowPoly1_dobercolours.png-1695e0318d060867e5f7c1361bfc62eb.s3tc.ctex"]
+source_file="res://assets/models/world/StartingGates_wood1.png"
+dest_files=["res://.godot/imported/StartingGates_wood1.png-493bdfb5e6afab8f76704a3e63351b19.s3tc.ctex"]
 
 [params]
 

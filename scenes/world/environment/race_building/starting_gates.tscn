@@ -1,19 +1,6 @@
-[gd_scene format=4 uid="uid://swinja7oxlf8"]
+[gd_scene format=3 uid="uid://swinja7oxlf8"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_g3fs1"]
-_surfaces = [{
-"aabb": AABB(-13, -0.025, -0.25, 26, 0.05, 0.5),
-"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
-"format": 34359738391,
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 36,
-"vertex_data": PackedByteArray("AABQwc3MzLwAAIA+AABQwc3MzLwAAIC+AABQwc3MzDwAAIC+AABQQc3MzLwAAIC+AABQwc3MzLwAAIC+AABQwc3MzLwAAIA+AABQwc3MzDwAAIC+AABQwc3MzLwAAIC+AABQQc3MzLwAAIC+AABQwc3MzDwAAIC+AABQwc3MzDwAAIA+AABQwc3MzLwAAIA+AABQwc3MzLwAAIA+AABQwc3MzDwAAIA+AABQQc3MzDwAAIA+AABQQc3MzDwAAIA+AABQwc3MzDwAAIA+AABQwc3MzDwAAIC+AABQwc3MzLwAAIA+AABQQc3MzLwAAIA+AABQQc3MzLwAAIC+AABQQc3MzDwAAIA+AABQQc3MzLwAAIA+AABQwc3MzLwAAIA+AABQQc3MzLwAAIC+AABQQc3MzLwAAIA+AABQQc3MzDwAAIA+AABQQc3MzLwAAIC+AABQQc3MzDwAAIC+AABQwc3MzDwAAIC+AABQwc3MzDwAAIC+AABQQc3MzDwAAIC+AABQQc3MzDwAAIA+AABQQc3MzDwAAIA+AABQQc3MzDwAAIC+AABQQc3MzLwAAIC+AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
-}]
+[ext_resource type="Script" uid="uid://dahkyly7nbl50" path="res://scenes/world/environment/race_building/starting_gates.gd" id="1_7fhpj"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3fs1"]
-albedo_color = Color(1, 0.37626606, 0.32479936, 1)
-
-[node name="StartingGates" type="MeshInstance3D" unique_id=374853355]
-mesh = SubResource("ArrayMesh_g3fs1")
-surface_material_override/0 = SubResource("StandardMaterial3D_g3fs1")
+[node name="StartingGates" type="Node3D" unique_id=647548850]
+script = ExtResource("1_7fhpj")

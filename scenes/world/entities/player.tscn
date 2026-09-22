@@ -3,14 +3,36 @@
 [ext_resource type="Script" uid="uid://2qf8hudpcq1r" path="res://scenes/world/entities/player.gd" id="1_cceqt"]
 [ext_resource type="Script" uid="uid://ce2ogqmxcrwny" path="res://scenes/world/entities/player_camera_controller.gd" id="2_nvt76"]
 [ext_resource type="Script" uid="uid://bpi3t5y6dc112" path="res://scenes/world/entities/player_movement_controller.gd" id="3_3e2st"]
+[ext_resource type="PackedScene" uid="uid://de5fkntw7ygso" path="res://assets/models/entity/Bodies/BodyF.glb" id="3_ghcoa"]
+[ext_resource type="PackedScene" uid="uid://b4kruqdphra0y" path="res://assets/models/entity/Hairs/Hair1.glb" id="4_4enbs"]
 [ext_resource type="Script" uid="uid://bj5xi3275y2x7" path="res://scenes/world/entities/racer_race_controller.gd" id="4_d21hd"]
-[ext_resource type="PackedScene" uid="uid://puruj5to6pp8" path="res://assets/models/entity/DoberLowPoly1.glb" id="4_n50kl"]
 [ext_resource type="PackedScene" uid="uid://bk8kqoj4tp1qq" path="res://scenes/ui/screens/running_ui.tscn" id="4_ypeb4"]
-[ext_resource type="PackedScene" uid="uid://cohohllh1stue" path="res://scenes/ui/components/DynamicLabel3D.tscn" id="6_3yndf"]
-[ext_resource type="PackedScene" uid="uid://6tnd5xd7g3js" path="res://scenes/ui/components/ValueBar3D.tscn" id="6_30u66"]
-[ext_resource type="FontFile" uid="uid://djiey2j4galij" path="res://assets/fonts/Bangers/Bangers-Regular.ttf" id="7_elg0s"]
+[ext_resource type="PackedScene" uid="uid://btbfyq7bqjn6x" path="res://scenes/world/entities/player_mesh_1.tscn" id="5_sovnb"]
+[ext_resource type="Script" uid="uid://h3lhbirq2bxs" path="res://scenes/world/entities/racer_hitbox_controller.gd" id="8_4enbs"]
+[ext_resource type="PackedScene" path="res://scenes/shared/HideZone3D.tscn" id="9_sovnb"]
+[ext_resource type="PackedScene" uid="uid://bf4mluyjsbjsj" path="res://scenes/ui/screens/game_ui.tscn" id="11_aijal"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_eby4c"]
+radius = 0.36035156
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m8dyk"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 0.5
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_duko6"]
+transparency = 1
+albedo_color = Color(0.972549, 0.627451, 0.45882353, 0.28235295)
+
+[sub_resource type="QuadMesh" id="QuadMesh_sdpoi"]
+material = SubResource("StandardMaterial3D_duko6")
+size = Vector2(0.1, 0.1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cceqt"]
 properties/0/path = NodePath(".:position")
@@ -19,10 +41,41 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("PlayerMovementController:current_animation")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("PlayerMovementController:is_damaging_ground")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sdpoi"]
+size = Vector3(0.8173828, 1.4267578, 0.9145508)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4enbs"]
+size = Vector3(0.5979004, 1.4267578, 2.1820068)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yfgcb"]
+size = Vector3(1.0053787, 1.4267578, 2.6381607)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_74ekq"]
+size = Vector3(1.4677734, 1.4267578, 0.56799316)
 
 [node name="Player" type="CharacterBody3D" unique_id=1059813952]
 axis_lock_angular_z = true
 script = ExtResource("1_cceqt")
+
+[node name="PlayerMesh" type="Node3D" parent="." unique_id=1348711327]
+unique_name_in_owner = true
+
+[node name="Mesh" parent="PlayerMesh" unique_id=829576885 instance=ExtResource("5_sovnb")]
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, -1, 0)
+visible = false
+
+[node name="BodyF" parent="PlayerMesh" unique_id=397669058 instance=ExtResource("3_ghcoa")]
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, -1, 0)
+
+[node name="Hair1" parent="PlayerMesh/BodyF" unique_id=1562518203 instance=ExtResource("4_4enbs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.075, -0.015)
 
 [node name="PlayerCameraController" type="Node" parent="." unique_id=1144865456]
 unique_name_in_owner = true
@@ -36,59 +89,97 @@ script = ExtResource("3_3e2st")
 unique_name_in_owner = true
 script = ExtResource("4_d21hd")
 
+[node name="RacerHitboxController" type="Node" parent="." unique_id=2103379251]
+script = ExtResource("8_4enbs")
+
 [node name="PlayerBodyCollision" type="CollisionShape3D" parent="." unique_id=1017544331]
 shape = SubResource("CylinderShape3D_eby4c")
 
-[node name="PlayerMesh" type="Node3D" parent="." unique_id=1348711327]
+[node name="CameraXPivot" type="Node3D" parent="." unique_id=2060415673]
 unique_name_in_owner = true
 
-[node name="DoberLowPoly1" parent="PlayerMesh" unique_id=2064378958 instance=ExtResource("4_n50kl")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -1, 0)
-
-[node name="CameraYPivot" type="Node3D" parent="." unique_id=1299207301]
+[node name="CameraYPivot" type="Node3D" parent="CameraXPivot" unique_id=1299207301]
 unique_name_in_owner = true
 
-[node name="CameraXPivot" type="Node3D" parent="CameraYPivot" unique_id=2060415673]
-unique_name_in_owner = true
-
-[node name="Camera3D" type="Camera3D" parent="CameraYPivot/CameraXPivot" unique_id=499415477]
+[node name="Camera3D" type="Camera3D" parent="CameraXPivot/CameraYPivot" unique_id=499415477]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0.68, 1.8, 3)
 
-[node name="RunningUI3DPivot" type="Node3D" parent="CameraYPivot" unique_id=2034648912]
+[node name="HideZone3D" parent="." unique_id=183191160 node_paths=PackedStringArray("excluded_node") instance=ExtResource("9_sovnb")]
+radius = 1.0
+transparency_alpha = 0.3
+excluded_node = NodePath("..")
 
-[node name="UINodes" type="Node3D" parent="CameraYPivot/RunningUI3DPivot" unique_id=1167725286]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8595712, 0, 0)
+[node name="Particles" type="Node3D" parent="." unique_id=2134106164]
 
-[node name="TargetSpeedValueBar" parent="CameraYPivot/RunningUI3DPivot/UINodes" unique_id=2089824330 instance=ExtResource("6_30u66")]
+[node name="GroundGPUParticles3D" type="GPUParticles3D" parent="Particles" unique_id=2135758059]
 unique_name_in_owner = true
-text = "Speed"
-bar_color = Color(0.22041732, 0.38301504, 0.21519339, 1)
-background_color = Color(0.83757305, 0.5370536, 0.33671024, 1)
-
-[node name="StaminaValueBar" parent="CameraYPivot/RunningUI3DPivot/UINodes" unique_id=814534117 instance=ExtResource("6_30u66")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3026688, 0, 0)
-text = "Stamina"
-bar_color = Color(0.30469462, 0.49018312, 0.6711688, 1)
-background_color = Color(0.4754268, 0.1559841, 0.09815612, 1)
-
-[node name="PositionLabel" type="Label3D" parent="CameraYPivot/RunningUI3DPivot/UINodes" unique_id=1717199457]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75897324, -0.640521, 0)
-billboard = 1
-text = "??/??"
-
-[node name="InformationDynamicLabel3D" parent="CameraYPivot/RunningUI3DPivot/UINodes" unique_id=1422622855 instance=ExtResource("6_3yndf")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6292367, 0.7449155, 0)
-font = ExtResource("7_elg0s")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.9649744, 0.26050377)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_m8dyk")
+draw_pass_1 = SubResource("QuadMesh_sdpoi")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=593208445]
 replication_config = SubResource("SceneReplicationConfig_cceqt")
 
 [node name="RunningUI" parent="." unique_id=1032889155 instance=ExtResource("4_ypeb4")]
 unique_name_in_owner = true
+visible = false
+
+[node name="GameUI" parent="." unique_id=1304958795 instance=ExtResource("11_aijal")]
+unique_name_in_owner = true
+
+[node name="InteractionRaycast3D" type="RayCast3D" parent="." unique_id=136636927]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55588067, -0.56574094)
+target_position = Vector3(0, 0, -5)
+
+[node name="InteractingTimer" type="Timer" parent="InteractionRaycast3D" unique_id=1066586945]
+unique_name_in_owner = true
+wait_time = 5.0
+
+[node name="Hitboxes" type="Node3D" parent="." unique_id=1092625319]
+
+[node name="BlockedArea3D" type="Area3D" parent="Hitboxes" unique_id=1728184663]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.0676657e-08, 0, -0.90114576)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/BlockedArea3D" unique_id=82660856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2133789, -0.04272461)
+shape = SubResource("BoxShape3D_sdpoi")
+debug_color = Color(0.9738111, 0.16391355, 0, 0.41960785)
+
+[node name="SlipstreamArea3D" type="Area3D" parent="Hitboxes" unique_id=147812498]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4.0676657e-08, 0, -1.8317192)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/SlipstreamArea3D" unique_id=1861366386]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2133789, 0.5910034)
+shape = SubResource("BoxShape3D_4enbs")
+debug_color = Color(0.3825872, 0.575402, 0.5845033, 0.41960785)
+
+[node name="DuellingArea3D" type="Area3D" parent="Hitboxes" unique_id=100571801]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -0.6976389, 0, -0.4750477)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/DuellingArea3D" unique_id=2036257719]
+transform = Transform3D(0.96592706, 0, 0.2588193, 0, 1, 0, -0.2588193, 0, 0.96592706, -0.22437924, 0.2133789, 0.2566988)
+shape = SubResource("BoxShape3D_yfgcb")
+debug_color = Color(0.31367174, 0.60986656, 0.4206196, 0.41960785)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Hitboxes/DuellingArea3D" unique_id=741421090]
+transform = Transform3D(0.96592706, 0, 0.2588193, 0, 1, 0, -0.2588193, 0, 0.96592706, 1.6664262, 0.2133789, -0.24994096)
+shape = SubResource("BoxShape3D_yfgcb")
+debug_color = Color(0.31367174, 0.60986656, 0.4206196, 0.41960785)
+
+[node name="BumpArea3D" type="Area3D" parent="Hitboxes" unique_id=492647290]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.0676657e-08, 0, 0.03120774)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/BumpArea3D" unique_id=1541950717]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213, 0)
+shape = SubResource("BoxShape3D_74ekq")
+debug_color = Color(0.7673301, 0.44645828, 0, 0.41960785)
 
 [connection signal="change_placing" from="." to="RacerRaceController" method="_on_player_change_placing"]
+[connection signal="timeout" from="InteractionRaycast3D/InteractingTimer" to="PlayerCameraController" method="_on_interacting_timer_timeout"]
+[connection signal="body_entered" from="Hitboxes/BlockedArea3D" to="RacerHitboxController" method="_on_blocked_area_3d_body_entered"]
+[connection signal="body_entered" from="Hitboxes/SlipstreamArea3D" to="RacerHitboxController" method="_on_slipstream_area_3d_body_entered"]
+[connection signal="body_entered" from="Hitboxes/DuellingArea3D" to="RacerHitboxController" method="_on_duelling_area_3d_body_entered"]
+[connection signal="body_entered" from="Hitboxes/BumpArea3D" to="RacerHitboxController" method="_on_bump_area_3d_body_entered"]

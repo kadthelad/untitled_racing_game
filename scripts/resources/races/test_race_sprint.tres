@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Race" format=3 uid="uid://brsdubqvaxng8"]
+
+[ext_resource type="PackedScene" uid="uid://bwasp4fm64ctx" path="res://scenes/world/environment/racecourses/racecourse_1.tscn" id="1_x06tq"]
+[ext_resource type="Script" uid="uid://bkthhgvm1ksy5" path="res://scripts/classes/environment/Race.gd" id="2_pbcp4"]
+
+[resource]
+script = ExtResource("2_pbcp4")
+i_name = "Test race 3"
+distance = 100
+racecourse = ExtResource("1_x06tq")
+track_id = "dirt_track_1"
+metadata/_custom_type_script = "uid://bkthhgvm1ksy5"

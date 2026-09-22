@@ -1,5 +1,4 @@
 class_name Racecourse
-extends MeshInstance3D
+extends Node3D
 
-@onready var checkpoints: Node3D = %Checkpoints
-@onready var skill_triggers: Node3D = %SkillTriggers
+@export var tracks: Array[Track]

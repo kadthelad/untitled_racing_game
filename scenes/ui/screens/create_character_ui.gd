@@ -1,11 +1,13 @@
 extends CanvasLayer
 
+const TRAITS_PATH := "res://scripts/resources/traits/"
+
 @onready var stats_tab: Panel = %StatsTab
 @onready var traits_tab: Panel = %TraitsTab
 @onready var skill_tab: Panel = %SkillTab
 
 # Tabs
-@onready var ui_tabs: Array[Control] = [stats_tab, traits_tab, skill_tab]
+@onready var ui_tabs: Array[CharacterCreatorControl] = [stats_tab, traits_tab, skill_tab]
 var current_tab_index := 0
 
 # StatsTab
@@ -44,7 +46,6 @@ func _ready() -> void:
 	# === Setup TraitsTab
 	trait_points_left = DEFAULT_TRAIT_POINTS
 	# Load the traits in the ItemLists
-	var TRAITS_PATH := "res://scripts/resources/traits/"
 	var dir_access := DirAccess.open(TRAITS_PATH)
 	if dir_access:
 		for file in dir_access.get_files():
@@ -54,9 +55,9 @@ func _ready() -> void:
 	
 	switch_tab(stats_tab)
 
-func switch_tab(tab_to_go: Control) -> void:
+func switch_tab(tab_to_go: CharacterCreatorControl) -> void:
 	if ui_tabs.has(tab_to_go):
-		for tab: Control in ui_tabs:
+		for tab: CharacterCreatorControl in ui_tabs:
 			if tab != tab_to_go:
 				tab.hide()
 			else:
@@ -65,17 +66,29 @@ func switch_tab(tab_to_go: Control) -> void:
 
 
 func _on_back_button_pressed() -> void:
+	if !ui_tabs[current_tab_index].is_character_valid:
+		return
 	if current_tab_index - 1 >= 0: # Go to previous window if possible
 		switch_tab(ui_tabs[current_tab_index - 1])
 	else: # Else, return to main menu
-		queue_free()
+		GameHandler.return_to_main_menu_requested.emit()
 
 
 func _on_next_button_pressed() -> void:
+	if !ui_tabs[current_tab_index].is_character_valid:
+		return
 	if current_tab_index + 1 < ui_tabs.size(): # Go to next window if possible
 		switch_tab(ui_tabs[current_tab_index + 1])
-	else: # Else, return to main menu
-		queue_free()
+	else: # Else, save and return to main menu
+		var runner: Runner = Runner.new("player", 1, 0, {
+			Runner.STATS.SPEED: float(speed.value_label.text),
+			Runner.STATS.STAMINA: float(endurance.value_label.text),
+			Runner.STATS.STRENGTH: float(power.value_label.text),
+			Runner.STATS.INTELLIGENCE: float(intelligence.value_label.text),
+			Runner.STATS.WILLPOWER: float(willpower.value_label.text),
+		}, [])
+		GameHandler.current_runner = runner
+		GameHandler.return_to_main_menu_requested.emit()
 
 # STATS
 func _on_stat_value_changed(value: float) -> void:
@@ -83,6 +96,11 @@ func _on_stat_value_changed(value: float) -> void:
 	for stat_slider : StatSlider in stat_sliders:
 		stat_points_left -= int(stat_slider.stat_slider.value)
 	stat_points_left_label.text = "Points left to spend: " + str(stat_points_left)
+	
+	if (stat_points_left < 0):
+		ui_tabs[current_tab_index].is_character_valid = false
+	else:
+		ui_tabs[current_tab_index].is_character_valid = true
 
 func _on_stat_reset_button_pressed() -> void:
 	for stat_slider : StatSlider in stat_sliders:

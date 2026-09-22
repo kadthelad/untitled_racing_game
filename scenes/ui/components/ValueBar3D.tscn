@@ -42,6 +42,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12869245, 0, -0.0016472936)
 billboard = 1
 double_sided = false
 no_depth_test = true
+render_priority = 127
 text = "ValueBar3D"
 font = ExtResource("2_eitlt")
 uppercase = true

@@ -16,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1498023507]
 layout_mode = 1
@@ -24,6 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -31,9 +33,11 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1325565513]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TopBarContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=1329037222]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="SettingsButton" type="Button" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=1839561082]
 custom_minimum_size = Vector2(150, 0)
@@ -64,12 +68,19 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "Current Map"
 
+[node name="LeaveLobbyButton" type="Button" parent="Control/MarginContainer/VBoxContainer/TopBarContainer" unique_id=991049167]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.73292726, 0.1663748, 0.18377993, 1)
+text = "Leave Lobby"
+
 [node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer" unique_id=573630944]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
 text = "\"K\" to see keybinds
-\"Escape\"/\"LeftCtrl\" to unlock cursor"
+\"Escape\" to unlock cursor"
 label_settings = SubResource("LabelSettings_8m7o1")
 
 [node name="JoinRacePanel" type="Panel" parent="Control" unique_id=1217337993]
@@ -83,6 +94,7 @@ anchor_bottom = 0.71141976
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/JoinRacePanel" unique_id=384541338]
 layout_mode = 1
@@ -91,6 +103,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -98,6 +111,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/JoinRacePanel/MarginContainer" unique_id=565585241]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="RaceInfoLabel" type="Label" parent="Control/JoinRacePanel/MarginContainer/VBoxContainer" unique_id=1600261060]
 unique_name_in_owner = true
@@ -112,6 +126,7 @@ Runners Participating : PARTICIPANTSCOUNT"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+mouse_filter = 2
 
 [node name="SkipRaceButton" type="Button" parent="Control/JoinRacePanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1050033816]
 custom_minimum_size = Vector2(100, 0)
@@ -138,5 +153,20 @@ anchor_bottom = 0.86882716
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 bbcode_enabled = true
-text = "[color=orange]K[/color] - Show/Hide this window
-[color=orange]Echap[/color]/[color=orange]LeftCtrl[/color] - Lock/Unlock mouse cursor"
+text = "[color=orange]LShift[/color] - Enter/Quit running mode (only during race)
+[color=orange]Q or A[/color] - (depending on keyboard layout) (only when NOT in running mode) Switch camera shoudler
+[color=orange]K[/color] - Show/Hide this window
+[color=orange]Escape[/color]- Lock/Unlock mouse cursor"
+
+[node name="BGPanel" type="Panel" parent="Control/KeybindsRichTextLabel" unique_id=594747935]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/TopBarContainer/LeaveLobbyButton" to="." method="_on_leave_lobby_button_pressed"]
+[connection signal="pressed" from="Control/JoinRacePanel/MarginContainer/VBoxContainer/HBoxContainer/SkipRaceButton" to="." method="_on_skip_race_button_pressed"]
+[connection signal="pressed" from="Control/JoinRacePanel/MarginContainer/VBoxContainer/HBoxContainer/JoinRaceButton" to="." method="_on_join_race_button_pressed"]

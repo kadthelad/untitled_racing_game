@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c2u4t8n3xkqpv"]
+
+[ext_resource type="Script" uid="uid://crwgyukia50j0" path="res://scenes/ui/components/value_bar.gd" id="1_valbr"]
+
+[node name="ValueBar" type="HBoxContainer" unique_id=727982873]
+script = ExtResource("1_valbr")
+
+[node name="DisplayLabel" type="Label" parent="." unique_id=2115221909]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "ValueBar"
+vertical_alignment = 1
+
+[node name="BarContainer" type="Control" parent="." unique_id=160364974]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="BackgroundBar" type="ColorRect" parent="BarContainer" unique_id=2062893600]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ForegroundBar" type="ColorRect" parent="BarContainer" unique_id=320454854]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.75
+offset_bottom = 1.75
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.74509805, 0.74509805, 0.74509805, 1)

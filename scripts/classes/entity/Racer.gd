@@ -2,6 +2,7 @@
 class_name Racer
 extends CharacterBody3D
 
+@warning_ignore("unused_signal") # Emitted here, consumed via a scene-file connection the analyzer can't see
 signal change_placing(placing: int, total_racers: int)
 
 @onready var racer_race_controller: RacerRaceController = %RacerRaceController

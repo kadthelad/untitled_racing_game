@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://8w2wgjexirud" path="res://scenes/ui/screens/create_character_ui.gd" id="1_1pfu7"]
 [ext_resource type="PackedScene" uid="uid://djuthid1cmwur" path="res://scenes/ui/components/skill_node.tscn" id="1_on7we"]
+[ext_resource type="Script" uid="uid://d1okp8mjkf6ma" path="res://scenes/ui/screens/character_creator_control.gd" id="2_in14h"]
 [ext_resource type="PackedScene" uid="uid://brvcm2up7gape" path="res://scenes/ui/components/stat_slider.tscn" id="2_tdo2n"]
 [ext_resource type="Resource" uid="uid://ccbfsrmjnws4b" path="res://scripts/resources/skills/active_skills/corner_acceleration.tres" id="4_6c4q0"]
 [ext_resource type="Resource" uid="uid://cni4w1wxyy5ba" path="res://scripts/resources/skills/active_skills/corner_recovery.tres" id="5_brqse"]
@@ -52,6 +53,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+script = ExtResource("2_in14h")
 
 [node name="MarginContainer" type="MarginContainer" parent="BG/StatsTab" unique_id=1420613699]
 layout_mode = 1
@@ -144,7 +146,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="BG/StatsTab/MarginContainer/HBoxContainer/CharacterDisplaySVC" unique_id=1924680566]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(569, 638)
 render_target_update_mode = 0
 
 [node name="TraitsTab" type="Panel" parent="BG" unique_id=1289596118]
@@ -156,6 +158,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_in14h")
 
 [node name="MarginContainer" type="MarginContainer" parent="BG/TraitsTab" unique_id=531714281]
 layout_mode = 1
@@ -252,6 +255,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_in14h")
 
 [node name="SkillNode" parent="BG/SkillTab" unique_id=2018152881 instance=ExtResource("1_on7we")]
 layout_mode = 1

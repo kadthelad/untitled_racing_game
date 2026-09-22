@@ -3,9 +3,10 @@ extends Node
 
 @onready var player: Player = get_parent()
 @onready var camera_y_pivot: Node3D = %CameraYPivot
+@onready var camera_x_pivot: Node3D = %CameraXPivot
 @onready var camera_3d: Camera3D = %Camera3D
+@onready var ground_gpu_particles_3d: GPUParticles3D = %GroundGPUParticles3D
 
-@onready var player_mesh: Node3D = %PlayerMesh
 
 enum RUNNING_STAGE {
 	WALK,
@@ -28,6 +29,7 @@ var runner: Runner:
 		stamina_regen_rate = runner.get_stamina_regen()
 		fatigue_buildup_rate = runner.get_fatigue_buildup()
 		fatigue_cap = runner.fatigue_cap
+		min_speed_to_damage_ground = runner.get_min_speed_for_ground_damage(GroundData.GROUND_TYPES.GRASS, WALK_SPEED)
 		
 		# Gait ceilings. The maxf chain guarantees strictly ascending order
 		# even with odd stat combos (e.g. low max speed + high stamina)
@@ -39,22 +41,54 @@ var runner: Runner:
 		stage_boundaries = [WALK_SPEED, trot_speed, pacing_speed, sprint_speed]
 		cap_hold_boundary = -1.0
 
+const MIN_FOV := 75
+const MAX_FOV := 85
+
 # Movement Variables
 const WALK_SPEED := 5.0
 
-var is_running := false
+const RUNNING_CAM_ROTATION := Vector3(-5, 0, 0)
+var is_running := false:
+	set(value):
+		is_running = value
+		current_speed = 0.0
+		cap_hold_boundary = -1.0
+		player.running_ui.running_stats_container.visible = is_running
+		player.running_ui.speed_label.visible = is_running
+		if is_running:
+			target_speed = WALK_SPEED
+			camera_y_pivot.rotation_degrees = RUNNING_CAM_ROTATION
+		else:
+			target_speed = WALK_SPEED
+			# CameraYPivot sits inside CameraXPivot, and walking movement direction reads
+			# CameraYPivot's global basis — reset the orbit so leftover yaw from running
+			# doesn't skew which way "forward" points while walking.
+			camera_x_pivot.rotation.y = 0.0
 var max_running_speed := WALK_SPEED
 var target_speed := WALK_SPEED:
 	set(value):
 		target_speed = value
-		target_speed_value_bar.value = (target_speed / max_running_speed) * 100.0
-const TARGET_SPEED_CHANGE := 0.5
+		player.running_ui.target_speed_value_bar.value = (target_speed / max_running_speed) * 100.0
+const TARGET_SPEED_CHANGE := 0.1
 const CTRL_SPEED_MULTIPLIER := 2.0
-var current_speed := WALK_SPEED
+var current_speed := 0.0:
+	set(value):
+		current_speed = value
+		if is_running:
+			# Show current_speed value in the running-stats speed bar
+			# velocity.length() gives you the scalar speed (ignoring Y so jumping doesn't affect it)
+			var horizontal_velocity := Vector3(player.velocity.x, 0, player.velocity.z)
+			var speed_ms := horizontal_velocity.length()         # meters per second
+			var speed_kmh := speed_ms * 3.6                      # 1 m/s = 3.6 km/h
+			
+			player.running_ui.speed_label.text = "%.1f km/h" % speed_kmh
+			player.running_ui.target_speed_value_bar.value_bg = (current_speed / max_running_speed) * 100.0
 
 var turning_speed := 0.5
 var acceleration := 5.0
 const DECELERATION := 5.0
+
+var min_speed_to_damage_ground := INF
 
 # Running Stage Variables
 var trot_speed := WALK_SPEED
@@ -89,44 +123,63 @@ const SPRINT_DRAIN_MULTIPLIER := 1.0
 const SPURT_DRAIN_MULTIPLIER := 1.8
 const FATIGUED_DRAIN_MULTIPLIER := 2.0
 
-# 3D UI Nodes
-@onready var target_speed_value_bar: ValueBar3D = %TargetSpeedValueBar
-@onready var stamina_value_bar: ValueBar3D = %StaminaValueBar
-@onready var information_dynamic_label_3d: DynamicLabel3D = %InformationDynamicLabel3D
-
 var is_local := true
 
+# Player Mesh & Animations
+const TILTING_SPEED := 0.8
+const MAX_TILT := 8
+const MIN_TILT := -8
+
+@onready var player_mesh: Node3D = %PlayerMesh
+var player_mesh_script: PlayerMesh
+var player_animation_player: AnimationPlayer
+
+## Replicated (see the MultiplayerSynchronizer in player.tscn) so every peer plays the same
+## animation for this racer, not just whichever peer controls it.
+var current_animation := "idle":
+	set(value):
+		if current_animation == value:
+			return
+		current_animation = value
+		if player_animation_player:
+			player_animation_player.play(current_animation)
+
+## Replicated (see the MultiplayerSynchronizer in player.tscn), same reasoning as
+## current_animation above: current_speed/is_running are local-simulation-only and never
+## networked, so without this, ground particles could only ever show on the controlling
+## peer's own screen — every other peer's copy of this racer has is_running permanently
+## false, since it's only ever set inside _input(), which is itself is_local-gated.
+var is_damaging_ground := false:
+	set(value):
+		if is_damaging_ground == value:
+			return
+		is_damaging_ground = value
+		ground_gpu_particles_3d.emitting = is_damaging_ground
+
 func _ready():
-	is_local = (MultiplayerHandler.peer == null or is_multiplayer_authority())
+	is_local = MultiplayerHandler.is_authority_or_offline(self)
+	player_mesh_script = player_mesh.get_child(0) as PlayerMesh
+	if player_mesh_script:
+		player_animation_player = player_mesh_script.animation_player
+		player_animation_player.play(current_animation)
 
 func _input(event: InputEvent) -> void:
 	if !is_local:
 		return
 	if event.is_action_pressed("game_run"):
-		is_running = !is_running
-		cap_hold_boundary = -1.0
-		if is_running:
-			target_speed = current_speed
-			# Set camera position
-			const RUNNING_CAM_ROTATION := Vector3(-5, 0, 0)
-			camera_y_pivot.rotation_degrees = RUNNING_CAM_ROTATION
+		if GameHandler.in_race:
+			is_running = !is_running
 		else:
-			target_speed = WALK_SPEED
-	
-	if is_running:
-		if event.is_action_pressed("mouse_scroll_up"):
-			_handle_speed_scroll(1)
-		if event.is_action_pressed("mouse_scroll_down"):
-			_handle_speed_scroll(-1)
+			is_running = false
 
-func _handle_speed_scroll(direction: int) -> void:
+func _adjust_target_speed(direction: int) -> void:
 	if !is_running:
 		return
 	
 	var ctrl_held := Input.is_action_pressed("key_ctrl")
 	var upper_limit := max_running_speed
 	if is_exhausted:
-		upper_limit = minf(upper_limit, pacing_speed) # Exhaustion overrides even ctrl
+		upper_limit = minf(upper_limit, WALK_SPEED) # Exhaustion overrides even ctrl
 	
 	if ctrl_held:
 		# Ctrl skips the pause entirely — meant for fast, deliberate speed changes
@@ -170,29 +223,22 @@ func _get_crossed_boundary(from_speed: float, to_speed: float) -> float:
 
 func _process(delta: float) -> void:
 	_update_stamina(delta)
-	
 	if is_running:
+		if Input.is_action_pressed("game_forward"):
+			_adjust_target_speed(1)
+		if Input.is_action_pressed("game_backward"):
+			_adjust_target_speed(-1)
+		
 		if current_speed != target_speed:
 			var rate := acceleration if target_speed > current_speed else DECELERATION
 			current_speed = move_toward(current_speed, target_speed, rate * delta)
-			
-			# velocity.length() gives you the scalar speed (ignoring Y so jumping doesn't affect it)
-			var horizontal_velocity := Vector3(player.velocity.x, 0, player.velocity.z)
-			var speed_ms := horizontal_velocity.length()         # meters per second
-			var speed_kmh := speed_ms * 3.6                      # 1 m/s = 3.6 km/h
-			
-			player.running_ui.speed_label.text = "%.1f km/h" % speed_kmh
-			target_speed_value_bar.value_bg = (current_speed / max_running_speed) * 100.0
-			
 			# Shift camera FOV with current speed
-			const MIN_FOV := 75
-			const MAX_FOV := 85
 			camera_3d.fov = remap(current_speed, 0.0, max_running_speed, MIN_FOV, MAX_FOV)
 
 func _update_stamina(delta: float) -> void:
 	if is_running:
 		if current_running_stage != _get_running_stage(current_speed):
-			information_dynamic_label_3d.set_unique_label("Current running stage : " + RUNNING_STAGE.find_key(_get_running_stage(current_speed)), 1)
+			player.running_ui.information_label.set_unique_label("Current running stage : " + RUNNING_STAGE.find_key(_get_running_stage(current_speed)), 1)
 		current_running_stage = _get_running_stage(current_speed)
 		match current_running_stage:
 			RUNNING_STAGE.SPRINT:
@@ -231,8 +277,8 @@ func _update_stamina(delta: float) -> void:
 		max_stamina = base_max_stamina * absf((current_fatigue / fatigue_cap) - 1.0)
 		current_stamina = minf(current_stamina, max_stamina)
 	
-	stamina_value_bar.value = (current_stamina / base_max_stamina) * 100.0
-	stamina_value_bar.value_bg = (current_fatigue / fatigue_cap) * 100.0
+	player.running_ui.stamina_value_bar.value = (current_stamina / base_max_stamina) * 100.0
+	player.running_ui.stamina_value_bar.value_bg = (current_fatigue / fatigue_cap) * 100.0
 
 func _get_running_stage(speed: float) -> RUNNING_STAGE:
 	if speed <= trot_speed:
@@ -250,6 +296,24 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not player.is_on_floor():
 		player.velocity += player.get_gravity() * delta
+
+	# Setting is_damaging_ground (rather than ground_gpu_particles_3d.emitting directly) is
+	# what gets this replicated to other peers — see the property's setter above.
+	is_damaging_ground = is_running and current_speed >= min_speed_to_damage_ground
+
+	# Animations. Setting current_animation (rather than calling .play() directly) is what
+	# gets this replicated to other peers — see the property's setter above.
+	if player.velocity.length() > 0 and player.is_on_floor():
+		# Slightly tilt the player to give a cool effect
+		# Convert world-space direction into player's local space for tilting
+		var local_dir := player_mesh.global_transform.basis.inverse() * player.velocity
+		player_mesh.rotation.x = rotate_toward(player_mesh.rotation.x, deg_to_rad(clampf(local_dir.z, MIN_TILT, MAX_TILT)), delta * TILTING_SPEED) # Front/Back tilt
+		player_mesh.rotation.z = rotate_toward(player_mesh.rotation.z, deg_to_rad(clampf(-local_dir.x, MIN_TILT, MAX_TILT)), delta * TILTING_SPEED) # Left/Right tilt
+		current_animation = "run"
+	else:
+		current_animation = "idle"
+		player_mesh.rotation.x = rotate_toward(player_mesh.rotation.x, 0, delta * TILTING_SPEED)
+		player_mesh.rotation.z = rotate_toward(player_mesh.rotation.z, 0, delta * TILTING_SPEED)
 	
 	if is_running: # Use acceleration and constantly run if the player is running
 		var forward := -player_mesh.global_transform.basis.z
@@ -270,17 +334,9 @@ func _physics_process(delta: float) -> void:
 				player.velocity.x = direction.x * WALK_SPEED
 				player.velocity.z = direction.z * WALK_SPEED
 				
-				# Slightly tilt the player to give a cool effect
-				# Convert world-space direction into player's local space for tilting
-				var local_dir := player_mesh.global_transform.basis.inverse() * direction
-				player_mesh.rotation.x = rotate_toward(player_mesh.rotation.x, deg_to_rad(local_dir.z * 10), delta) # Front/Back tilt
-				player_mesh.rotation.z = rotate_toward(player_mesh.rotation.z, deg_to_rad(-local_dir.x * 10), delta) # Left/Right tilt
 		else:
 			# Go back to default velocity (0) and default tilting (none) when not moving
 			player.velocity.x = move_toward(player.velocity.x, 0, WALK_SPEED)
 			player.velocity.z = move_toward(player.velocity.z, 0, WALK_SPEED)
-			
-			player_mesh.rotation.x = rotate_toward(player_mesh.rotation.x, 0, delta)
-			player_mesh.rotation.z = rotate_toward(player_mesh.rotation.z, 0, delta)
 		
 	player.move_and_slide()

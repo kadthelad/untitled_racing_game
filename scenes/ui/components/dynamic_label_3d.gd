@@ -59,6 +59,7 @@ func _create_label(text: String, color: Color) -> Label3D:
 	label.font_size = 16
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	label.no_depth_test = true
+	label.render_priority = 127
 	if font == null:
 		label.font = font
 	

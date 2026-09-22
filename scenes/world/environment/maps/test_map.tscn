@@ -3,9 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://bwasp4fm64ctx" path="res://scenes/world/environment/racecourses/racecourse_1.tscn" id="1_uotcw"]
 [ext_resource type="Script" uid="uid://rsfgvpb0s2f" path="res://scenes/world/environment/maps/race_handler.gd" id="2_l1kh6"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l1kh6"]
-albedo_color = Color(0.20460054, 0.37846068, 0.18520442, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_yovl4"]
 size = Vector3(10, 0.209, 100)
 
@@ -32,14 +29,15 @@ sky = SubResource("Sky_l1kh6")
 
 [node name="Racecourse1" parent="." unique_id=1645013793 instance=ExtResource("1_uotcw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.091484, -6.4112644, 0)
-material_override = SubResource("StandardMaterial3D_l1kh6")
 
 [node name="RaceHandler" type="Node" parent="." unique_id=1975334687 node_paths=PackedStringArray("racecourse")]
+unique_name_in_owner = true
 script = ExtResource("2_l1kh6")
 racecourse = NodePath("../Racecourse1")
 
 [node name="PlacingCheckTimer" type="Timer" parent="RaceHandler" unique_id=1607086245]
 unique_name_in_owner = true
+wait_time = 0.3
 
 [node name="SpawnPoint" type="StaticBody3D" parent="." unique_id=1955314821]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -2.20858, -6.922434, 250)
@@ -48,6 +46,7 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -2.20858, -6.922434, 250)
 shape = SubResource("BoxShape3D_yovl4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnPoint" unique_id=41549878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5497208e-06, 0)
 mesh = SubResource("BoxMesh_uotcw")
 
 [node name="50m" type="MeshInstance3D" parent="SpawnPoint/MeshInstance3D" unique_id=1850193618]
@@ -97,6 +96,5 @@ environment = SubResource("Environment_4475m")
 _spawnable_scenes = PackedStringArray("uid://bus38b2cif1sw")
 spawn_path = NodePath("..")
 
-[connection signal="ready" from="RaceHandler" to="RaceHandler" method="_on_ready"]
 [connection signal="timeout" from="RaceHandler/PlacingCheckTimer" to="RaceHandler" method="_on_placing_check_timer_timeout"]
 [connection signal="spawned" from="MultiplayerSpawner" to="RaceHandler" method="_on_multiplayer_spawner_spawned"]

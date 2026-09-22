@@ -1,5 +1,5 @@
-extends HBoxContainer
 class_name StatSlider
+extends HBoxContainer
 
 @onready var value_label: Label = %ValueLabel
 @onready var stat_slider: HSlider = %StatSlider

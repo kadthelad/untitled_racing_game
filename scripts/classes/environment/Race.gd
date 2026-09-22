@@ -6,4 +6,5 @@ extends Resource
 @export var distance: int = 1200
 @export var max_participants: int = 6
 @export var racecourse: PackedScene
-@export var ground_type: GroundData.GROUND_TYPES = GroundData.GROUND_TYPES.GRASS
+@export var clockwise: bool = true
+@export var track_id: String = ""
